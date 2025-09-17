@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import GameBoard from './components/GameBoard.vue'
+import WordGuess from './components/WordGuess/WordGuess.vue';
 </script>
 
 <template>
-  <GameBoard></GameBoard>
+  <WordGuess></WordGuess>
 </template>
 
 <style scoped>
