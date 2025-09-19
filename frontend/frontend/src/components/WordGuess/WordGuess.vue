@@ -32,7 +32,7 @@ function handleEnter() {
         <GameBoard :guesses="guesses"></GameBoard>
         <Keyboard
         @key-press="handleKeyPress"
-        @backspace="handleDeleteLetter"
+        @delete="handleDeleteLetter"
         @enter="handleEnter"
         ></Keyboard>
     </div>
