@@ -3,7 +3,7 @@
 defineProps({
     guesses: {
         type: Array,
-        required: true
+        required: true //the prop must be given to init this component
     }
 })
 
@@ -12,17 +12,17 @@ defineProps({
 <!-- Should be the guesses-->
 
 <template>
-    <div>
-        <div class="flex flex-col w-[35vw] h-[70vh] border-4">
-            <p class="text-center p-5 font-bold">Guesses</p>
-            <div v-for="(guess, i) in guesses" :key="i">
-                <span v-for="n in 5" :key="n">
-                    {{ guess[n-1] || "" }}
-                    {{ console.log("aa" + guess[n]) }}
+    <div class="flex flex-col gap-8 border-5 text-center">
+        <p class="font-bold text-5xl">Guesses</p>
+        <div class="grid gap-2">
+            <div v-for="(guess, i) in guesses" :key="i" class="grid grid-cols-5 gap-2">
+                <span v-for="n in 5" :key="n"class="flex items-center justify-center w-12 h-12 border border-gray-400 text-xl font-bold uppercase">
+                    {{ guess[n - 1] || "_" }}
                 </span>
             </div>
         </div>
     </div>
+    
 </template>
 
 
