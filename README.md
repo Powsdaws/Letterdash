@@ -18,7 +18,7 @@ Players can guess words daily, and (hopefully coming soon) race against friends 
 ## Tech Stack
 - Frontend: Vue 3, Vite, TailwindCSS  
 - Backend: Node.js, Express.js, Socket.io (future?)  
-- Database: MongoDB (local or Atlas)  
+- Database: MongoDB (local)  
 
 ---
 
