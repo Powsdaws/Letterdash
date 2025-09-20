@@ -10,7 +10,7 @@ Players can guess words daily, and (hopefully coming soon) race against friends 
 - Built with Vue 3 + Vite (frontend)
 - Express.js REST API (backend)
 - MongoDB word storage
-- Real-time multiplayer???
+- Multiplayer???
 - Styled with Tailwind CSS
 
 ---
@@ -24,11 +24,11 @@ Players can guess words daily, and (hopefully coming soon) race against friends 
 
 ## Run the project
 ### Backend
-cd backend__
-npm install__
+cd backend\
+npm install\
 node server.js
 
 ### Frontend
-cd frontend__
-npm install__
+cd frontend\
+npm install\
 npm run dev
