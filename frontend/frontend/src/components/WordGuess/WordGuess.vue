@@ -6,7 +6,10 @@ import Keyboard from './Keyboard.vue';
 const guesses = ref(["","","","","", ""]) //The guesses of the player
 const currentRow = ref(0);
 const rowStatus = ref(['','','','','', '']);
-const solution = ref("AAAAA");
+const res = await fetch("http://localhost:5000/api/word")
+const word = await res.json();
+const solution = word.word
+console.log(solution)
 
 function handleKeyPress(letter) {
     //add letter to the current row
@@ -23,7 +26,7 @@ function handleDeleteLetter() {
 
 function handleEnter() {
     if (guesses.value[currentRow.value].length === 5) {
-        if (guesses.value[currentRow.value].toUpperCase() === solution.value.toUpperCase()) {
+        if (guesses.value[currentRow.value].toUpperCase() === solution.toUpperCase()) {
             rowStatus.value[currentRow.value] = "correct"
             console.log("NICELY DONE!")
         } else {
