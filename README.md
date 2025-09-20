@@ -24,11 +24,11 @@ Players can guess words daily, and (hopefully coming soon) race against friends 
 
 ## Run the project
 ### Backend
-cd backend
-npm install
+cd backend__
+npm install__
 node server.js
 
 ### Frontend
-cd frontend
-npm install
+cd frontend__
+npm install__
 npm run dev
