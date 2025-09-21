@@ -8,7 +8,6 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Button: typeof import('primevue/button')['default']
     GameBoard: typeof import('./src/components/WordGuess/GameBoard.vue')['default']
     Keyboard: typeof import('./src/components/WordGuess/Keyboard.vue')['default']
     ProgressSpinner: typeof import('primevue/progressspinner')['default']
