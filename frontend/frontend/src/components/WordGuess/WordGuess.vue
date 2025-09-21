@@ -26,7 +26,6 @@ const {solution, fetchRandomWord} = useGameApi()
 
 onMounted(() => {
   fetchRandomWord()
-  console.log("aaa" + solution.value)
 })
 
 function handleKeyPress(letter) {
@@ -53,15 +52,15 @@ function handleEnter() {
     if (currentCol.value === 5) { //if we have a full word
         console.log("Full word")
         for (let i = 0; i < 5; i++) {
-            if (guesses.value[currentRow.value][i].toUpperCase() === solution[i]) {
+            if (guesses.value[currentRow.value][i].toUpperCase() === solution.value[i].toUpperCase()) {
                 letterStatus.value[currentRow.value][i] = "correct"
-            } else if (solution.includes(guesses.value[currentRow.value][i].toUpperCase())) {
+            } else if (solution.value.includes(guesses.value[currentRow.value][i].toUpperCase())) {
                 letterStatus.value[currentRow.value][i] = "exists"
             } else {
                 letterStatus.value[currentRow.value][i] = "wrong"
             }
         }
-        if (guesses.value[currentRow.value].toUpperCase() === solution) {
+        if (guesses.value[currentRow.value].toUpperCase() === solution.value) {
             correct.value = true;
             
         }

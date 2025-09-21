@@ -1,10 +1,14 @@
-input_file = "words.txt"
-output_file = "words.json"
+import csv
 
-with open(input_file, "r") as f, open(output_file, "w") as out:
+input_file = "words.txt"
+output_file = "words.csv"
+
+with open(input_file, "r") as f, open(output_file, "w", newline='') as csvfile:
+    writer = csv.writer(csvfile, delimiter=',')  # ensure comma
+    writer.writerow(["word"])  # header
     for line in f:
         word = line.strip()
         if word:
-            out.write(f'{{ "word": "{word}" }}\n')
+            writer.writerow([word.upper()])
 
-print(f"Created {output_file}")
+print(f"✅ Created {output_file} ready for Supabase import")
