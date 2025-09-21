@@ -20,9 +20,10 @@ const letterStatus = ref([
 ]);
 
 //Fetching answer
-const res = await fetch("http://localhost:5000/api/word")
+const res = await fetch("http://localhost:5000/api/word/random")
+console.log(res)
 const word = await res.json();
-const solution = word.word.toUpperCase();
+const solution = word.Word.toUpperCase();
 console.log(solution)
 
 function handleKeyPress(letter) {

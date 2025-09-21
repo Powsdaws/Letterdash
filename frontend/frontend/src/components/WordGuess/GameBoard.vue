@@ -21,12 +21,12 @@ defineProps({
                 <span
                 v-for="colIndex in 5"
                 :key="colIndex"
-                class="flex items-center justify-center w-16 h-16 border-4 font-extrabold text-2xl uppercase bg-gray-200"
+                class="flex items-center justify-center w-16 h-16 border-2 border-gray-200 font-extrabold text-2xl uppercase"
                 :class="{
                     'bg-green-400 ': letterStatus?.[rowIndex]?.[colIndex - 1] === 'correct',
                     'bg-yellow-400': letterStatus?.[rowIndex]?.[colIndex - 1] === 'exists',
                     'bg-red-400 shake': letterStatus?.[rowIndex]?.[colIndex - 1] === 'wrong',
-                    'border-gray-600': !letterStatus?.[rowIndex]?.[colIndex - 1] === ''
+                    'bg-gray-100': letterStatus?.[rowIndex]?.[colIndex - 1] === ''
                 }"
                 >
                  {{ guess[colIndex - 1] || '_' }}

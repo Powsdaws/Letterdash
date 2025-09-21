@@ -5,6 +5,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import wordRoutes from "./routes/word.js";
 
 
 const app = express();
@@ -12,12 +13,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+mongoose.connect("mongodb://localhost:27017/LetterdashDB")
+  .then(() => console.log(" Connected to MongoDB"))
+  .catch(err => console.error("MongoDB connection error:", err));
 
-app.get("/api/word", (req, res) => {
-  res.json({ word: "apple" }); // later fetch random from DB
+
+app.get("/", (req, res) => {
+  res.send("Letterdash backend running");
 });
 
-mongoose.connect("mongodb://localhost:27017/wordle");
+app.use("/api/word", wordRoutes)
 
 //Starts the server/app
 const port = process.env.port || 5000;
