@@ -57,22 +57,6 @@ function handleEnter() {
         currentCol.value = 0;
         currentRow.value++;
     }
-
-    /*
-    for (let i = 0; i < 5; i++) {
-        if (guesses.value[currentRow.value].length === 5) {
-            if (guesses.value[currentRow.value].toUpperCase() === solution) {
-                letterStatus.value[currentRow][]
-                rowStatus.value[currentRow.value] = "correct"
-                console.log("NICELY DONE!")
-            } else {
-                rowStatus.value[currentRow.value] = "incorrect"
-            }
-            
-            currentRow.value++;
-        }
-    }
-        */
     
 }
 
