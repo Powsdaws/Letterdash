@@ -8,7 +8,7 @@ import WordGuess from './components/WordGuess/WordGuess.vue';
       <WordGuess />
     </template>
     <template #fallback>
-      <div>Loading...</div>
+      <ProgressSpinner class="flex flex-col min-h-screen justify-center" />
     </template>
   </Suspense>
 
