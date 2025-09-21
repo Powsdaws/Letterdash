@@ -7,6 +7,7 @@ import Keyboard from './Keyboard.vue';
 const guesses = ref(["","","","","", ""]) //The guesses of the player
 const currentRow = ref(0);
 const currentCol = ref(0);
+const correct = ref(false);
 
 //Used to keep track of which letters are in the right place
 const letterStatus = ref([
@@ -18,6 +19,7 @@ const letterStatus = ref([
   ["", "", "", "", ""]
 ]);
 
+//Fetching answer
 const res = await fetch("http://localhost:5000/api/word")
 const word = await res.json();
 const solution = word.word.toUpperCase();
@@ -55,12 +57,19 @@ function handleEnter() {
                 letterStatus.value[currentRow.value][i] = "wrong"
             }
         }
+        if (guesses.value[currentRow.value].toUpperCase() === solution) {
+            correct.value = true;
+            
+        }
+        console.log(correct.value)
         currentCol.value = 0;
         currentRow.value++;
+        
     }
 
 
     //TODO This does not work rn
+    /*
     function onKeyDown(event) {
     const key = event.key.toUpperCase();
     if (key === "BACKSPACE") handleDeleteLetter();
@@ -70,6 +79,7 @@ function handleEnter() {
 
     onMounted(() => window.addEventListener("keydown", onKeyDown));
     onBeforeUnmount(() => window.removeEventListener("keydown", onKeyDown));
+    */
     
 }
 
@@ -84,5 +94,7 @@ function handleEnter() {
         @enter="handleEnter"
         ></Keyboard>
     </div>
-    
+    <<Dialog v-model:visible="correct" :style="{ width: '25rem' }">
+         <span class=" font-extrabold text-2xl text-center text-surface-500 dark:text-surface-400 block mb-8">YOU GOT IT, WELL DONE!</span>
+    </Dialog>
 </template>
