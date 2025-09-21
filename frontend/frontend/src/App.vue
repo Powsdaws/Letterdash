@@ -11,7 +11,10 @@ import WordGuess from './components/WordGuess/WordGuess.vue';
       <div>Loading...</div>
     </template>
   </Suspense>
+
+  
 </template>
+
 
 <style scoped>
 </style>

@@ -10,7 +10,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('primevue/button')['default']
     GameBoard: typeof import('./src/components/WordGuess/GameBoard.vue')['default']
-    InputText: typeof import('primevue/inputtext')['default']
     Keyboard: typeof import('./src/components/WordGuess/Keyboard.vue')['default']
     WordGuess: typeof import('./src/components/WordGuess/WordGuess.vue')['default']
   }

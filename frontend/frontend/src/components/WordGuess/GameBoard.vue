@@ -19,6 +19,7 @@ defineProps({
 <template>
     <div class="flex flex-col gap-8 border-5 text-center">
         <p class="font-bold text-5xl">Guesses</p>
+        <Button label="Click Me" />
         <div class="grid gap-2">
             <div v-for="(guess, i) in guesses" :key="i" class="grid grid-cols-5 gap-2">
                 <span 

@@ -6,10 +6,16 @@ import App from './App.vue'
 
 //Primevue
 import PrimeVue from "primevue/config";
-import Aura from "@primeuix/themes/aura";   // Or Lara, Material, Nora, etc.
-import "primeicons/primeicons.css";                       
-
+import Aura from "@primeuix/themes/aura";
+import "primeicons/primeicons.css";
 const app = createApp(App)
-app.use(PrimeVue)
+app.use(PrimeVue, {
+  theme: {
+    preset: Aura
+  }
+});                   
+
+
+
 
 app.mount('#app')
