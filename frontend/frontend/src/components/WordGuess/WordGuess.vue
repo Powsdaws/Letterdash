@@ -3,6 +3,7 @@ import {ref,  onMounted, onBeforeUnmount} from 'vue';
 
 import GameBoard from './GameBoard.vue';
 import Keyboard from './Keyboard.vue';
+import { useGameApi } from '@/composables/useGameApi'
 
 const guesses = ref(["","","","","", ""]) //The guesses of the player
 const currentRow = ref(0);
@@ -20,11 +21,13 @@ const letterStatus = ref([
 ]);
 
 //Fetching answer
-const res = await fetch("http://localhost:5000/api/word/random")
-console.log(res)
-const word = await res.json();
-const solution = word.Word.toUpperCase();
-console.log(solution)
+const {solution, fetchRandomWord} = useGameApi()
+
+
+onMounted(() => {
+  fetchRandomWord()
+  console.log("aaa" + solution.value)
+})
 
 function handleKeyPress(letter) {
     //add letter to the current row
