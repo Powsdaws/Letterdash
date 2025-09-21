@@ -1,5 +1,6 @@
 <script setup>
-import {ref} from 'vue';
+import {ref,  onMounted, onBeforeUnmount} from 'vue';
+
 import GameBoard from './GameBoard.vue';
 import Keyboard from './Keyboard.vue';
 
@@ -57,6 +58,18 @@ function handleEnter() {
         currentCol.value = 0;
         currentRow.value++;
     }
+
+
+    //TODO This does not work rn
+    function onKeyDown(event) {
+    const key = event.key.toUpperCase();
+    if (key === "BACKSPACE") handleDeleteLetter();
+    else if (key === "ENTER") handleEnter();
+    else if (/^[A-Z]$/.test(key)) handleKeyPress(key);
+    }
+
+    onMounted(() => window.addEventListener("keydown", onKeyDown));
+    onBeforeUnmount(() => window.removeEventListener("keydown", onKeyDown));
     
 }
 
