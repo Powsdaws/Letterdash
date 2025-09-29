@@ -6,6 +6,7 @@ import Keyboard from './Keyboard.vue';
 import { useGameApi } from '@/composables/useGameApi'
 
 const guesses = ref(["","","","","", ""]) //The guesses of the player
+const guessedWords = ref(new Set());
 const currentRow = ref(0);
 const currentCol = ref(0);
 const correct = ref(false);
@@ -52,6 +53,12 @@ function handleEnter() {
     if (currentCol.value === 5) { //if we have a full word
         console.log("Full word")
         for (let i = 0; i < 5; i++) {
+
+            //Add to set of guessed words
+            guessedWords.value.add(guesses.value[currentRow.value][i].toUpperCase());
+            console.log(guessedWords)
+            
+            //Set letterstatus
             if (guesses.value[currentRow.value][i].toUpperCase() === solution.value[i].toUpperCase()) {
                 letterStatus.value[currentRow.value][i] = "correct"
             } else if (solution.value.includes(guesses.value[currentRow.value][i].toUpperCase())) {
@@ -91,7 +98,7 @@ function handleEnter() {
 <template>
     <div class="flex flex-col min-h-screen justify-center items-center content-start gap-8 ">
         <GameBoard :guesses="guesses" :letterStatus="letterStatus" :currentRow="currentRow"></GameBoard>
-        <Keyboard
+        <Keyboard :guessedWords="guessedWords"
         @key-press="handleKeyPress"
         @delete="handleDeleteLetter"
         @enter="handleEnter"
