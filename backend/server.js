@@ -1,31 +1,22 @@
-//serves as entrypoint for my application
+// backend/server.js
+import express from "express"
+import cors from "cors"
+import mongoose from "mongoose"
+import wordRoutes from "./routes/word.js"
 
-// fileName : server.js 
-// Example using the http module
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-import wordRoutes from "./routes/word.js";
+const app = express()
+app.use(cors())
+app.use(express.json())
 
+mongoose.connect("mongodb://127.0.0.1:27017/LetterdashDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("MongoDB connection error:", err))
 
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-
-mongoose.connect("mongodb://localhost:27017/LetterdashDB")
-  .then(() => console.log(" Connected to MongoDB"))
-  .catch(err => console.error("MongoDB connection error:", err));
-
-
-app.get("/", (req, res) => {
-  res.send("Letterdash backend running");
-});
-
+// mount routes
 app.use("/api/word", wordRoutes)
 
-//Starts the server/app
-const port = process.env.port || 5000;
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-}) 
+const port = process.env.PORT || 5000
+app.listen(port, () => console.log(`Server running on http://localhost:${port}`))

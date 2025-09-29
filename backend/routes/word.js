@@ -1,22 +1,21 @@
 import express from "express"
 import Word from "../models/Word.js"
 
-const router = express.Router();
+const router = express.Router()
 
+// GET /api/word/random
 router.get("/random", async (req, res) => {
-    try {
-        // Use aggregation with $sample to get ONE random word
-        const result = await Word.aggregate([{ $sample: { size: 1 } }]);
-
-        if (result.length > 0) {
-            res.json({Word: result[0].word});
-        } else {
-            res.status(404).json({error: "No words in db"})
-        }
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Server error" });
+  try {
+    const result = await Word.aggregate([{ $sample: { size: 1 } }]) // pick random doc
+    if (result.length > 0) {
+      res.json({ word: result[0].word }) // send word back to frontend
+    } else {
+      res.status(404).json({ error: "No words in database" })
     }
-});
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "Server error" })
+  }
+})
 
-export default router;
+export default router

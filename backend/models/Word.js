@@ -1,10 +1,9 @@
-// models/Word.js
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
 const WordSchema = new mongoose.Schema({
   word: { type: String, required: true }
-});
+})
 
-const Word = mongoose.model("Word", WordSchema);
+const Word = mongoose.model("Word", WordSchema)
 
-export default Word;
+export default Word
