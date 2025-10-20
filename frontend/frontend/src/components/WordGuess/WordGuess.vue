@@ -13,7 +13,8 @@ const guessedLetters = ref(new Map());
 const guesses = ref(["","","","","", ""]) //The guesses of the player
 const currentRow = ref(0);
 const currentCol = ref(0);
-const correct = ref(false);
+const correct = ref(false); //if user won
+const lost = ref(false); //if user lost
 const toast = useToast();
 
 //Used to keep track of which letters are in the right place
@@ -43,7 +44,6 @@ onUnmounted(() => {
 //handling clicking letters
 function handleKeyPress(letter) {
     //add letter to the current row
-    console.log(guesses)
     if (guesses.value[currentRow.value].length < 5) {
         guesses.value[currentRow.value] += letter;
         currentCol.value++;
@@ -86,12 +86,10 @@ function handleEnter() {
             return;
         }
 
-        console.log("Full word")
         for (let i = 0; i < 5; i++) { // go though each letter
 
             //Add to set of guessed words
             guessedWords.value.add(guesses.value[currentRow.value][i].toUpperCase());
-            console.log(guessedWords)
             
             //Set letterstatus
             if (guess[i].toUpperCase() === solution.value[i].toUpperCase()) {
@@ -105,11 +103,16 @@ function handleEnter() {
                 guessedLetters.value.set(guesses.value[currentRow.value][i].toUpperCase(), "wrong") 
             }
         }
+
+        //check if won
         if (guess.toUpperCase() === solution.value) {
+            console.log("WON")
             correct.value = true;
-            
+        } else if (currentRow.value === 5) {
+            //check if lost
+            console.log("LOST")
+            lost.value = true;
         }
-        console.log(correct.value)
         currentCol.value = 0;
         currentRow.value++;
         
@@ -138,6 +141,9 @@ function handleInvalidWord(guess) {
     </div>
     <<Dialog v-model:visible="correct" :style="{ width: '25rem' }">
          <span class=" font-extrabold text-2xl text-center text-surface-500 dark:text-surface-400 block mb-8">YOU GOT IT, WELL DONE!</span>
+    </Dialog>
+    <<Dialog v-model:visible="lost" :style="{ width: '25rem' }">
+         <span class=" font-extrabold text-2xl text-center text-surface-500 dark:text-surface-400 block mb-8">Ahww! That was not it sadly</span>
     </Dialog>
 
     <Toast 
