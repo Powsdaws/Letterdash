@@ -6,11 +6,7 @@ defineProps({
     currentRow: Number
 })
 
-
-
-
 </script>
-
 <!-- Should be the guesses-->
 
 <template>

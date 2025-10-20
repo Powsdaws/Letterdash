@@ -94,7 +94,7 @@ function handleEnter() {
             console.log(guessedWords)
             
             //Set letterstatus
-            if (guesses.value[currentRow.value][i].toUpperCase() === solution.value[i].toUpperCase()) {
+            if (guess[i].toUpperCase() === solution.value[i].toUpperCase()) {
                 letterStatus.value[currentRow.value][i] = "correct" //letterstatus for gameboard
                 guessedLetters.value.set(guesses.value[currentRow.value][i].toUpperCase(), "correct") //letterstatus for keyboard
             } else if (solution.value.includes(guesses.value[currentRow.value][i].toUpperCase())) {
@@ -105,7 +105,7 @@ function handleEnter() {
                 guessedLetters.value.set(guesses.value[currentRow.value][i].toUpperCase(), "wrong") 
             }
         }
-        if (guesses.value[currentRow.value].toUpperCase() === solution.value) {
+        if (guess.toUpperCase() === solution.value) {
             correct.value = true;
             
         }
