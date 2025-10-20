@@ -1,9 +1,9 @@
 <script setup>
 import {ref,  onMounted, onBeforeUnmount, onUnmounted} from 'vue';
-
 import GameBoard from './GameBoard.vue';
 import Keyboard from './Keyboard.vue';
 import { useGameApi } from '@/composables/useGameApi'
+import { useToast } from 'primevue';
 
 //Datastructures for keyboard
 const guessedWords = ref(new Set());
@@ -14,6 +14,7 @@ const guesses = ref(["","","","","", ""]) //The guesses of the player
 const currentRow = ref(0);
 const currentCol = ref(0);
 const correct = ref(false);
+const toast = useToast();
 
 //Used to keep track of which letters are in the right place
 const letterStatus = ref([
@@ -81,6 +82,7 @@ function handleEnter() {
         //check if valid word
         if (!isValidGuess(guess)){
             console.log("Not a valid word")
+            handleInvalidWord(guess);
             return;
         }
 
@@ -114,6 +116,15 @@ function handleEnter() {
     }
 }
 
+//handles when user inputs a invalid word
+function handleInvalidWord(guess) {
+    toast.add({
+        severity: 'info',
+        detail: `"${guess}" is not a valid word.`,
+        life: 2000  
+    })
+}
+
 </script>
 
 <template>
@@ -128,4 +139,7 @@ function handleEnter() {
     <<Dialog v-model:visible="correct" :style="{ width: '25rem' }">
          <span class=" font-extrabold text-2xl text-center text-surface-500 dark:text-surface-400 block mb-8">YOU GOT IT, WELL DONE!</span>
     </Dialog>
+
+    <Toast 
+    position="bottom-center" ></Toast> 
 </template>
