@@ -1,5 +1,6 @@
 import express from "express"
 import Word from "../models/Word.js"
+import ValidWords from "../models/ValidWord.js"
 
 const router = express.Router()
 
@@ -14,6 +15,16 @@ router.get("/random", async (req, res) => {
     }
   } catch (err) {
     console.error(err)
+    res.status(500).json({ error: "Server error" })
+  }
+})
+
+router.get("/valid-words", async (req, res) => { //check http://localhost:5000/api/word/valid-words
+  try {
+    const validWords = await ValidWords.find().select('-_id')
+    res.json(validWords)
+  } catch (err) {
+    console.log("Could not fetch all valid-words: ", err)
     res.status(500).json({ error: "Server error" })
   }
 })
