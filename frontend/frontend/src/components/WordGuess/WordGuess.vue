@@ -26,11 +26,12 @@ const letterStatus = ref([
 ]);
 
 //Fetching answer
-const {solution, fetchRandomWord} = useGameApi()
+const {solution, fetchRandomWord, isValidGuess, fetchValidWords} = useGameApi()
 
 
 onMounted(() => {
   fetchRandomWord()
+  fetchValidWords()
   document.addEventListener('keydown', handleKeyDown)
 })
 
@@ -75,6 +76,14 @@ function handleEnter() {
     console.log(currentRow.value)
     console.log(letterStatus)
     if (currentCol.value === 5) { //if we have a full word
+        const guess = guesses.value[currentRow.value].toUpperCase()
+
+        //check if valid word
+        if (!isValidGuess(guess)){
+            console.log("Not a valid word")
+            return;
+        }
+
         console.log("Full word")
         for (let i = 0; i < 5; i++) { // go though each letter
 
