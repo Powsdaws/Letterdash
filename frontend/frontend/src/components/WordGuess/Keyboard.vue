@@ -1,7 +1,8 @@
 <script setup>
 
 defineProps({
-    guessedWords: Object
+    guessedWords: Object, //note to self: this unwraps, and i dont need to call guessedwords.value.has..
+    guessedLetters: Object
 })
 
 const emit = defineEmits(["key-press", "delete", "enter"]);
@@ -19,7 +20,12 @@ function pressKey(letter) {
         :key = "letter"
         @click="pressKey(letter)"
         class="border outline-offset-2 outline-sky-500 focus:outline-2 size-12"
-        :class="{'bg-gray-500': guessedWords.has(letter)}">
+        :class="{
+            'bg-gray-50': guessedLetters.has(letter) === false,
+            'bg-gray-300': guessedLetters.get(letter) === 'wrong',
+            'bg-yellow-400': guessedLetters.get(letter) === 'exists',
+            'bg-green-400': guessedLetters.get(letter) === 'correct',
+            }">
         <span >
             {{ letter }}
         </span>

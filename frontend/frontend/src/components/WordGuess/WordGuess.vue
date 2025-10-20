@@ -5,8 +5,12 @@ import GameBoard from './GameBoard.vue';
 import Keyboard from './Keyboard.vue';
 import { useGameApi } from '@/composables/useGameApi'
 
-const guesses = ref(["","","","","", ""]) //The guesses of the player
+//Datastructures for keyboard
 const guessedWords = ref(new Set());
+const guessedLetters = ref(new Map());
+
+//Datastructures for the gameboard
+const guesses = ref(["","","","","", ""]) //The guesses of the player
 const currentRow = ref(0);
 const currentCol = ref(0);
 const correct = ref(false);
@@ -52,7 +56,7 @@ function handleEnter() {
     console.log(letterStatus)
     if (currentCol.value === 5) { //if we have a full word
         console.log("Full word")
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 5; i++) { // go though each letter
 
             //Add to set of guessed words
             guessedWords.value.add(guesses.value[currentRow.value][i].toUpperCase());
@@ -60,11 +64,14 @@ function handleEnter() {
             
             //Set letterstatus
             if (guesses.value[currentRow.value][i].toUpperCase() === solution.value[i].toUpperCase()) {
-                letterStatus.value[currentRow.value][i] = "correct"
+                letterStatus.value[currentRow.value][i] = "correct" //letterstatus for gameboard
+                guessedLetters.value.set(guesses.value[currentRow.value][i].toUpperCase(), "correct") //letterstatus for keyboard
             } else if (solution.value.includes(guesses.value[currentRow.value][i].toUpperCase())) {
                 letterStatus.value[currentRow.value][i] = "exists"
+                guessedLetters.value.set(guesses.value[currentRow.value][i].toUpperCase(), "exists") 
             } else {
                 letterStatus.value[currentRow.value][i] = "wrong"
+                guessedLetters.value.set(guesses.value[currentRow.value][i].toUpperCase(), "wrong") 
             }
         }
         if (guesses.value[currentRow.value].toUpperCase() === solution.value) {
@@ -98,7 +105,7 @@ function handleEnter() {
 <template>
     <div class="flex flex-col min-h-screen justify-center items-center content-start gap-8 ">
         <GameBoard :guesses="guesses" :letterStatus="letterStatus" :currentRow="currentRow"></GameBoard>
-        <Keyboard :guessedWords="guessedWords"
+        <Keyboard :guessedWords="guessedWords" :guessedLetters="guessedLetters"
         @key-press="handleKeyPress"
         @delete="handleDeleteLetter"
         @enter="handleEnter"
