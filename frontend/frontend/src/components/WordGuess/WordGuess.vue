@@ -1,5 +1,5 @@
 <script setup>
-import {ref,  onMounted, onBeforeUnmount} from 'vue';
+import {ref,  onMounted, onBeforeUnmount, onUnmounted} from 'vue';
 
 import GameBoard from './GameBoard.vue';
 import Keyboard from './Keyboard.vue';
@@ -31,14 +31,34 @@ const {solution, fetchRandomWord} = useGameApi()
 
 onMounted(() => {
   fetchRandomWord()
+  document.addEventListener('keydown', handleKeyDown)
 })
 
+onUnmounted(() => {
+    document.removeEventListener('keydown', handleKeydown)
+})
+
+//handling clicking letters
 function handleKeyPress(letter) {
     //add letter to the current row
     console.log(guesses)
     if (guesses.value[currentRow.value].length < 5) {
         guesses.value[currentRow.value] += letter;
         currentCol.value++;
+    }
+}
+
+//handling key presses
+function handleKeyDown(event) {
+    var keyValue = event.key;
+    var keyCode = event.keyCode
+
+    if (keyCode === 8) {
+        handleDeleteLetter();
+    } else if (keyCode === 13) {
+        handleEnter();
+    } else if (keyCode >= 65 && keyCode <= 90 ) {
+        handleKeyPress(keyValue)
     }
 }
 
@@ -83,21 +103,6 @@ function handleEnter() {
         currentRow.value++;
         
     }
-
-
-    //TODO This does not work rn
-    /*
-    function onKeyDown(event) {
-    const key = event.key.toUpperCase();
-    if (key === "BACKSPACE") handleDeleteLetter();
-    else if (key === "ENTER") handleEnter();
-    else if (/^[A-Z]$/.test(key)) handleKeyPress(key);
-    }
-
-    onMounted(() => window.addEventListener("keydown", onKeyDown));
-    onBeforeUnmount(() => window.removeEventListener("keydown", onKeyDown));
-    */
-    
 }
 
 </script>
