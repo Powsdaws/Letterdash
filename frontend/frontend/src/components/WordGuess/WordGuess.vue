@@ -28,11 +28,11 @@ const letterStatus = ref([
 ]);
 
 //Fetching answer
-const {solution, fetchRandomWord, isValidGuess, fetchValidWords} = useGameApi()
+const {solution, fetchRandomWord, isValidGuess, fetchValidWords, fetchDailyWord} = useGameApi()
 
 
 onMounted(() => {
-  fetchRandomWord()
+  fetchDailyWord()
   fetchValidWords()
   document.addEventListener('keydown', handleKeyDown)
 })

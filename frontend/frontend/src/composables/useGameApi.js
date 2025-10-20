@@ -17,12 +17,30 @@ export function useGameApi() {
       if (!res.ok) throw new Error(`HTTP error ${res.status}`)
       const data = await res.json()
       solution.value = data.word.toUpperCase()
-      console.log("Fetched solution:", solution.value)
+      console.log("Fetched random word:", solution.value)
     } catch (err) {
       console.error("Failed to fetch word:", err)
       error.value = err
     } finally {
       loading.value = false
+    }
+  }
+
+  const fetchDailyWord = async () => {
+    
+    try {
+      const res = await fetch("http://localhost:5000/api/word/daily-word")
+      const data = await res.json()
+
+      if (!data.word) {
+      throw new Error(data.error || "No word received");
+    }
+
+      solution.value = data.word.toUpperCase()
+      console.log("Fetched daily word:", solution.value)
+    } catch (err) {
+      console.log("Failed to fetch daily-word with error: ", err)
+      error.value = err
     }
   }
 
@@ -41,5 +59,5 @@ export function useGameApi() {
     return validWords.value.has(guess.toUpperCase())
   }
 
-  return { solution, fetchRandomWord, isValidGuess ,fetchValidWords }
+  return { solution, fetchRandomWord, isValidGuess ,fetchValidWords, fetchDailyWord}
 }
