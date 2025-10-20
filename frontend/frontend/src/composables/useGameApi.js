@@ -30,7 +30,7 @@ export function useGameApi() {
     try {
       const result = await fetch("http://localhost:5000/api/word/valid-words")
       const data = await result.json()
-      validWords.value = new Set(data.map(entry => entry.word)) //map data array of objects to array of strings
+      validWords.value = new Set(data.map(entry => entry.aahed.toUpperCase())) //map data array of objects to array of strings
     } catch (err) {
       console.log("Failed to fetch valid-words with error: ", err)
       error.value = err
