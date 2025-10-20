@@ -1,7 +1,7 @@
 <script setup>
 
 defineProps({
-    guessedWords: Set
+    guessedWords: Object
 })
 
 const emit = defineEmits(["key-press", "delete", "enter"]);
@@ -19,7 +19,7 @@ function pressKey(letter) {
         :key = "letter"
         @click="pressKey(letter)"
         class="border outline-offset-2 outline-sky-500 focus:outline-2 size-12"
-        :class="{'bg-gray-500': guessedWords.value.has(letter)}">
+        :class="{'bg-gray-500': guessedWords.has(letter)}">
         <span >
             {{ letter }}
         </span>
