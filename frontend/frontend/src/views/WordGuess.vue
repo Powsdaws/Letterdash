@@ -6,6 +6,8 @@ import { useGameApi } from '@/composables/useGameApi'
 import { useToast } from 'primevue';
 import { useRouter } from 'vue-router';
 
+const WORD_LENGTH = 5;
+
 const router = useRouter();
 
 //Datastructures for keyboard
@@ -47,7 +49,7 @@ onBeforeUnmount(() => {
 //handling clicking letters
 function handleKeyPress(letter) {
     //add letter to the current row
-    if (guesses.value[currentRow.value].length < 5) {
+    if (guesses.value[currentRow.value].length < WORD_LENGTH) {
         guesses.value[currentRow.value] += letter.toUpperCase();
         currentCol.value++;
     }
@@ -79,7 +81,7 @@ function handleEnter() {
     console.log(currentCol.value)
     console.log(currentRow.value)
     console.log(letterStatus)
-    if (currentCol.value === 5) { //if we have a full word
+    if (currentCol.value === WORD_LENGTH) { //if we have a full word
         const guess = guesses.value[currentRow.value].toUpperCase()
 
         console.log(guesses)
@@ -94,7 +96,7 @@ function handleEnter() {
             return;
         }
 
-        for (let i = 0; i < 5; i++) { // go though each letter
+        for (let i = 0; i < WORD_LENGTH; i++) { // go though each letter
 
             //Add to set of guessed words
             guessedWords.value.add(guesses.value[currentRow.value][i].toUpperCase());
