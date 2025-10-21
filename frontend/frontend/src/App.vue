@@ -5,7 +5,7 @@ import { RouterView } from 'vue-router';
 <template>
   <Suspense>
     <template #default>
-      <router-view />
+      <router-view :key="$route.fullPath" />
     </template>
     <template #fallback>
       <ProgressSpinner class="flex flex-col min-h-screen justify-center" />
