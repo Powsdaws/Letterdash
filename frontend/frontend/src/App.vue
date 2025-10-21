@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
-import WordGuess from './views/WordGuess.vue';
 </script>
 
 <template>
