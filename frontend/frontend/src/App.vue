@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import WordGuess from './components/WordGuess/WordGuess.vue';
+import { RouterView } from 'vue-router';
+import WordGuess from './views/WordGuess.vue';
 </script>
 
 <template>
   <Suspense>
     <template #default>
-      <WordGuess />
+      <router-view />
     </template>
     <template #fallback>
       <ProgressSpinner class="flex flex-col min-h-screen justify-center" />

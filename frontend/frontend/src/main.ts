@@ -3,6 +3,7 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from '@/router.js'
 
 //Primevue
 import PrimeVue from "primevue/config";
@@ -24,5 +25,7 @@ app.use(PrimeVue, {
 
 app.use(ToastService) //enable use of toasts
 app.component('Toast', Toast)
+
+app.use(router)
 
 app.mount('#app')

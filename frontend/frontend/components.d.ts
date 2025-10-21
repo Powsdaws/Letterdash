@@ -12,6 +12,7 @@ declare module 'vue' {
     GameBoard: typeof import('./src/components/WordGuess/GameBoard.vue')['default']
     Keyboard: typeof import('./src/components/WordGuess/Keyboard.vue')['default']
     ProgressSpinner: typeof import('primevue/progressspinner')['default']
-    WordGuess: typeof import('./src/components/WordGuess/WordGuess.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
   }
 }

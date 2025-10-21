@@ -1,7 +1,7 @@
 <script setup>
 import {ref,  onMounted, onBeforeUnmount, onUnmounted} from 'vue';
-import GameBoard from './GameBoard.vue';
-import Keyboard from './Keyboard.vue';
+import GameBoard from '../components/WordGuess/GameBoard.vue';
+import Keyboard from '../components/WordGuess/Keyboard.vue';
 import { useGameApi } from '@/composables/useGameApi'
 import { useToast } from 'primevue';
 
