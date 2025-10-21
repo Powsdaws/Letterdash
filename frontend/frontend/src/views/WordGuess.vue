@@ -4,6 +4,9 @@ import GameBoard from '../components/WordGuess/GameBoard.vue';
 import Keyboard from '../components/WordGuess/Keyboard.vue';
 import { useGameApi } from '@/composables/useGameApi'
 import { useToast } from 'primevue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 //Datastructures for keyboard
 const guessedWords = ref(new Set());
@@ -45,7 +48,7 @@ onUnmounted(() => {
 function handleKeyPress(letter) {
     //add letter to the current row
     if (guesses.value[currentRow.value].length < 5) {
-        guesses.value[currentRow.value] += letter;
+        guesses.value[currentRow.value] += letter.toUpperCase();
         currentCol.value++;
     }
 }
@@ -79,10 +82,15 @@ function handleEnter() {
     if (currentCol.value === 5) { //if we have a full word
         const guess = guesses.value[currentRow.value].toUpperCase()
 
+        console.log(guesses)
         //check if valid word
         if (!isValidGuess(guess)){
             console.log("Not a valid word")
-            handleInvalidWord(guess);
+            handleInvalidGuess(guess, " is not a valid word.");
+            return;
+        } else if (guesses.value.slice(0, currentRow.value).includes(guess)) {
+            console.log("Word already guessed")
+            handleInvalidGuess(guess, " is already guessed.");
             return;
         }
 
@@ -120,12 +128,16 @@ function handleEnter() {
 }
 
 //handles when user inputs a invalid word
-function handleInvalidWord(guess) {
+function handleInvalidGuess(guess, message) {
     toast.add({
         severity: 'info',
-        detail: `"${guess}" is not a valid word.`,
+        detail: `"${guess}"${message}`,
         life: 2000  
     })
+}
+
+function returnToHomePage() {
+    router.push('/');
 }
 
 </script>
@@ -142,8 +154,9 @@ function handleInvalidWord(guess) {
     <<Dialog v-model:visible="correct" :style="{ width: '25rem' }">
          <span class=" font-extrabold text-2xl text-center text-surface-500 dark:text-surface-400 block mb-8">YOU GOT IT, WELL DONE!</span>
     </Dialog>
-    <<Dialog v-model:visible="lost" :style="{ width: '25rem' }">
+    <Dialog v-model:visible="lost" :closable="false" :close-on-escape="false" :style="{ width: '25rem' }">
          <span class=" font-extrabold text-2xl text-center text-surface-500 dark:text-surface-400 block mb-8">Ahww! That was not it sadly</span>
+         <Button class="w-full" @click="returnToHomePage">Return to homepage</Button>
     </Dialog>
 
     <Toast 

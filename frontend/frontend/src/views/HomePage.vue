@@ -13,12 +13,12 @@ function changePage(route) {
     <div class="flex flex-col gap-12 mt-12 ml-10 mr-10">
         <div class="flex flex-row justify-between items-center">
             <span class="pi pi-home" style="font-size: 2.5rem"></span>
-            <h1 class="font-surfer text-4xl">WordGuess</h1>
+            <h1 class="font-surfer text-4xl">Letterdash</h1>
             <span class="pi pi-user" style="font-size: 2.5rem"></span>
         </div>
 
         <div>
-            <p class="font-lexend text-5xl">Games</p>
+            <p class="font-surfer text-4xl">Games</p>
             <hr>
         </div>
         
