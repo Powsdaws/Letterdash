@@ -23,7 +23,8 @@ function changePage(route) {
         </div>
         
         <div>
-            <Card class="border-2" style="width: 20rem; overflow: hidden">
+            <div class="card-hover border-2 rounded-3xl cursor-pointer" style="width: 20rem; overflow: hidden" @click="changePage('wordguess')" >
+                <Card >
                 <template #title>
                     <h2 class="text-center text-3xl">Word Guess</h2>
                 </template>
@@ -32,12 +33,24 @@ function changePage(route) {
                 </template>
                 <template #footer>
                     <div class="flex gap-4 mt-1">
-                        <Button label="Play" class="w-full" @click="changePage('wordguess')" />
+                        <Button label="Play" class="w-full"/>
                     </div>
                 </template>
-            </Card>
+                </Card>
+            </div>
+            
         </div>
         
     </div>
     
 </template>
+
+<style>
+
+.card-hover:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+</style>
