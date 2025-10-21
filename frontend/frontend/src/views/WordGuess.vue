@@ -151,8 +151,9 @@ function returnToHomePage() {
         @enter="handleEnter"
         ></Keyboard>
     </div>
-    <<Dialog v-model:visible="correct" :style="{ width: '25rem' }">
+    <<Dialog v-model:visible="correct" :closable="false" :close-on-escape="false" :style="{ width: '25rem' }">
          <span class=" font-extrabold text-2xl text-center text-surface-500 dark:text-surface-400 block mb-8">YOU GOT IT, WELL DONE!</span>
+         <Button class="w-full" @click="returnToHomePage">Return to homepage</Button>
     </Dialog>
     <Dialog v-model:visible="lost" :closable="false" :close-on-escape="false" :style="{ width: '25rem' }">
          <span class=" font-extrabold text-2xl text-center text-surface-500 dark:text-surface-400 block mb-8">Ahww! That was not it sadly</span>
