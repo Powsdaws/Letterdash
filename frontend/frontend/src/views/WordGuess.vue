@@ -40,8 +40,8 @@ onMounted(() => {
   document.addEventListener('keydown', handleKeyDown)
 })
 
-onUnmounted(() => {
-    document.removeEventListener('keydown', handleKeydown)
+onBeforeUnmount(() => {
+    document.removeEventListener('keydown', handleKeyDown)
 })
 
 //handling clicking letters
