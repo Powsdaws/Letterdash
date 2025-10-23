@@ -45,7 +45,7 @@ const onSignup = async () => {
 // Login
 const onLogin = async () => {
   try {
-    const response = await axios.post('/api/login', {
+    const response = await axios.post('http://localhost:5000/api/login', {
       email: email.value,
       password: password.value,
     });
@@ -58,7 +58,7 @@ const onLogin = async () => {
 //  Logout
 const onLogout = async () => {
   try {
-    await axios.post('/api/logout');
+    await axios.post('http://localhost:5000/api/logout');
     authenticated.value = false;
   } catch (error) {
     console.error(error);
