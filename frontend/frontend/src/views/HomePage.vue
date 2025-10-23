@@ -1,15 +1,13 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import axios from 'axios';
+
 import { useCookies } from 'vue3-cookies';
 import { ref, computed, onMounted } from 'vue';
+import { useAuthApi } from '@/composables/useAuthApi'
 const router = useRouter();
 function changePage(route) {
     router.push('/' + route)
 }
-
-
-axios.defaults.withCredentials = true;
 
 const { cookies } = useCookies();
 
@@ -18,6 +16,8 @@ const email = ref('');
 const password = ref('');
 const result = ref('');
 const authenticated = ref(false);
+
+const {onSignup, onLogin, onLogout} = useAuthApi(email, password, authenticated)
 
 //  Check if session cookie exists
 const checkCookie = computed(() => {
@@ -29,42 +29,6 @@ onMounted(() => {
   authenticated.value = checkCookie.value;
 });
 
-//  Signup
-const onSignup = async () => {
-  try {
-    const response = await axios.post('http://localhost:5000/api/signup', {
-      email: email.value,
-      password: password.value,
-    });
-    authenticated.value = true;
-  } catch (error) {
-    console.error('Signup failed:', error);
-  }
-};
-
-// Login
-const onLogin = async () => {
-  try {
-    const response = await axios.post('http://localhost:5000/api/login', {
-      email: email.value,
-      password: password.value,
-    });
-    authenticated.value = true;
-  } catch (error) {
-    alert(error.message);
-  }
-};
-
-//  Logout
-const onLogout = async () => {
-  try {
-    await axios.post('http://localhost:5000/api/logout');
-    authenticated.value = false;
-  } catch (error) {
-    console.error(error);
-    alert(error.message);
-  }
-};
 
 </script>
 
