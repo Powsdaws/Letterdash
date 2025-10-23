@@ -1,34 +1,20 @@
 <script setup>
 import { useRouter } from 'vue-router';
 
-import { useCookies } from 'vue3-cookies';
 import { ref, computed, onMounted } from 'vue';
 import { useAuthApi } from '@/composables/useAuthApi'
+import { useSessionStatus } from '@/composables/useSessionStatus'
 const router = useRouter();
 function changePage(route) {
     router.push('/' + route)
 }
 
-const { cookies } = useCookies();
-
 //  Reactive state
 const email = ref('');
 const password = ref('');
-const result = ref('');
-const authenticated = ref(false);
+const { authenticated } = useSessionStatus();
 
 const {onSignup, onLogin, onLogout} = useAuthApi(email, password, authenticated)
-
-//  Check if session cookie exists
-const checkCookie = computed(() => {
-  return !!cookies.get('connect.sid');
-});
-
-//  Lifecycle hook
-onMounted(() => {
-  authenticated.value = checkCookie.value;
-});
-
 
 </script>
 
