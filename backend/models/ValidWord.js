@@ -1,9 +1,7 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
-const ValidWordSchema = new mongoose.Schema({
-  word: { type: String, required: true }
-})
+const validWordSchema = new mongoose.Schema({
+  word: String,
+});
 
-const ValidWord = mongoose.model('ValidWord', ValidWordSchema, 'valid_words')
-
-export default ValidWord
+export default mongoose.model('ValidWord', validWordSchema);
