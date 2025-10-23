@@ -7,12 +7,16 @@ import wordRoutes from "./routes/word.js"
 import dotenv from 'dotenv';
 dotenv.config(); 
 
-const session  = require('express-session'); // Authentication is stored in sessions, so we'll use express-session
-const MongoStore = require('connect-mongo');  // Used to connect our session data to our MongoDB
-const passport = require('passport'); // Passport is used for authentication
+import session from 'express-session';
+ // Authentication is stored in sessions, so we'll use express-session
+import MongoStore from 'connect-mongo';  // Used to connect our session data to our MongoDB
+import passport from 'passport'; // Passport is used for authentication
 
 const app = express()
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:5173', //frontend server
+  credentials: true               //allow cookies to be sent
+}));
 app.use(express.json())
 
 console.log("Connecting to:", process.env.MONGODB_URI);
@@ -26,9 +30,10 @@ mongoose.connect(process.env.MONGODB_URI, {
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error("MongoDB connection error:", err))
 
+const connectString = process.env.MONGODB_URI;
 
 // Initialize Passport
-const initPassport = require('./passport/init');
+import initPassport from './passport/init.js';
 initPassport(passport);
 // Create the Session
 app.use(session({

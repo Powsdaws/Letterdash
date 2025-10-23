@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-const mongoose = require('mongoose');
 
 function toLower (v) { // rewrite emails to lowercase
 	if(v){
@@ -12,4 +11,4 @@ const Users = new mongoose.Schema({
 	password: String,
 });
 
-module.exports = mongoose.model('User', Users);
+export default mongoose.model('User', Users);
