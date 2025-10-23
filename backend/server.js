@@ -4,13 +4,18 @@ import express from "express"
 import cors from "cors"
 import mongoose from "mongoose"
 import wordRoutes from "./routes/word.js"
+import dotenv from 'dotenv';
+dotenv.config(); 
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 
+console.log("Connecting to:", process.env.MONGODB_URI);
+
+
 //Connect to db
-mongoose.connect("mongodb://127.0.0.1:27017/LetterdashDB", {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
